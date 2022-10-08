@@ -30,7 +30,13 @@
       </form>
     </div>
     <div class="col-12 col-md-8">
-      <total-proyectos :numeroProyectos="numeroProyectos" :proyectos="proyectos" :cambiarEstado="cambiarEstado"/>
+      <total-proyectos 
+      :numeroProyectos="numeroProyectos" 
+      :proyectos="proyectos" 
+      :cambiarEstado="cambiarEstado"
+      :limpiarData="limpiarData"
+      :removeData="removeData"
+      />
     </div>
   </div>
 </template>
@@ -67,7 +73,19 @@
         //this.proyectos[id].urgente = !this.proyectos[id].urgente;
         //console.log(proyecto, campo)
         proyecto[campo] = !proyecto[campo];
+      },
+      saveData(){
+        localStorage.setItem("proyectos", JSON.stringify(this.proyectos));
+      },
+      limpiarData(){
+        this.proyectos = [];
+        localStorage.clear();
+      },
+      removeData(valor){
+        this.proyectos.splice(valor,1);
+        this.saveData();
       }
+
     },
 
     computed: {
